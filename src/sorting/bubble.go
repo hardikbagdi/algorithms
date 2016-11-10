@@ -1,11 +1,8 @@
+//Provides basic sorting functions for 'int' datatype.
+//Wish there were generics
 package sorting
 
-import "fmt"
-
-//func Sum(a,b int) int {
-//	return a+b
-//}
-
+// Bubble sort an array of int
 func BubbleSort(array []int) {
 	length := len(array)
 	for i := 0; i < length; i++ {
@@ -15,10 +12,4 @@ func BubbleSort(array []int) {
 			}
 		}
 	}
-}
-
-func main() {
-	arr := []int{12, 4, 325, 2, 66, 7, 7, 3, 35}
-	BubbleSort(arr)
-	fmt.Println(arr)
 }
