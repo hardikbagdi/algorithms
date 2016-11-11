@@ -2,6 +2,7 @@ package sorting
 
 import "math/rand"
 
+//sort and array of int using simple quick sort
 func QuickSort(array []int) {
 	if array == nil || len(array) <= 1 {
 		return
@@ -20,8 +21,4 @@ func QuickSort(array []int) {
 	xchg(array, 0, last)
 	QuickSort(array[:last])
 	QuickSort(array[last:])
-}
-
-func xchg(arr []int, a, b int) {
-	arr[a], arr[b] = arr[b], arr[a]
 }

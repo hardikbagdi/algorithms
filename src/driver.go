@@ -15,7 +15,8 @@ func main() {
 		//sorting.InsertionSort(x)
 		//sorting.SelectionSort(x)
 		//sorting.MergeSort(x)
-		sorting.QuickSort(x)
+		//sorting.QuickSort(x)
+		sorting.QuickSort3way(x)
 		fmt.Println(x)
 	}
 }

@@ -18,3 +18,7 @@ func isIntArraySorted(arr []int) bool {
 	sort.Ints(arrCopy)
 	return arraysEqual(arr, arrCopy)
 }
+
+func xchg(arr []int, a, b int) {
+	arr[a], arr[b] = arr[b], arr[a]
+}
