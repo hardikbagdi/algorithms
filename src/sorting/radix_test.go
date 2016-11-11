@@ -14,7 +14,7 @@ func testRadixSort(t *testing.T, arr []int) {
 func TestRadixSort(t *testing.T) {
 	random.RandomizeSeed()
 	for i := 0; i < 100; i++ {
-		arr := random.RandomArray(1090)
+		arr := random.Array(1090)
 		testRadixSort(t, arr)
 	}
 }

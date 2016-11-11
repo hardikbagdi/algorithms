@@ -14,7 +14,7 @@ func testQuickSort3way(t *testing.T, arr []int) {
 func TestQuickSort3way(t *testing.T) {
 	random.RandomizeSeed()
 	for i := 0; i < 100; i++ {
-		arr := random.RandomArray(100)
+		arr := random.Array(100)
 		testQuickSort3way(t, arr)
 	}
 }

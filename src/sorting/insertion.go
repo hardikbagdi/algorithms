@@ -1,6 +1,6 @@
 package sorting
 
-// Insertion sort an array of int
+// InsertionSort  sorts an array of int
 func InsertionSort(array []int) {
 	if array == nil {
 		return

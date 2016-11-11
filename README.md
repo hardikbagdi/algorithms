@@ -1,3 +1,4 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/hardikbagdi/algorithms)](https://goreportcard.com/report/github.com/hardikbagdi/algorithms)
 ### Basic Algorithms
 #### Sorting
 - Bubble Sort

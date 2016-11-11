@@ -1,5 +1,8 @@
 package search
 
+// BinarySearch looks for searchTerm in the sorted array 'array' and return the index
+// array has to be sorted
+// if searchTerm is not found then -1 is returned
 func BinarySearch(array []int, searchTerm int) int {
 	if array == nil {
 		return -1

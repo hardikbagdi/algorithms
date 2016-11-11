@@ -4,7 +4,7 @@ import (
 	"math"
 )
 
-//Merge sort an array of int
+//MergeSort  sorts an array of int
 func MergeSort(array []int) {
 	//base case + some error checking
 	if array == nil || len(array) <= 1 {

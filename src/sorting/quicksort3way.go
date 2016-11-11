@@ -2,7 +2,7 @@ package sorting
 
 import "math/rand"
 
-//Sort an array of int using 3-way quick sort
+//QuickSort3way sorts an array of int using 3-way quick sort
 func QuickSort3way(array []int) {
 	if array == nil || len(array) <= 1 {
 		return

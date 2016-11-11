@@ -14,7 +14,7 @@ func testSelectionSort(t *testing.T, arr []int) {
 func TestSelectionSort(t *testing.T) {
 	random.RandomizeSeed()
 	for i := 0; i < 100; i++ {
-		arr := random.RandomArray(100)
+		arr := random.Array(100)
 		testSelectionSort(t, arr)
 	}
 }

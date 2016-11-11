@@ -2,7 +2,7 @@ package sorting
 
 import "math/rand"
 
-//sort and array of int using simple quick sort
+//QuickSort sorts an array of int using simple quick sort
 func QuickSort(array []int) {
 	if array == nil || len(array) <= 1 {
 		return

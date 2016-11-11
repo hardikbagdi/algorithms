@@ -1,6 +1,6 @@
 package sorting
 
-// Sort an array of Int using radix sort
+// RadixSort  sorts an array of Int using radix sort
 func RadixSort(array []int) {
 	max := GetMax(array)
 

@@ -1,8 +1,7 @@
-//Provides basic sorting functions for 'int' datatype.
-//Wish there were generics
+//Package sorting provides methods for sorting an array of int using various sorting techniques
 package sorting
 
-// Bubble sort an array of int
+// BubbleSort sorts an array of int
 func BubbleSort(array []int) {
 	if array == nil {
 		return

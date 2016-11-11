@@ -9,7 +9,7 @@ import (
 
 func testArrayPositiveSearch(T *testing.T) {
 	random.RandomizeSeed()
-	array := random.RandomArray(100)
+	array := random.Array(100)
 	sorting.QuickSort(array)
 	searchTerm := array[rand.Intn(len(array))]
 	if LinearSearch(array, searchTerm) != BinarySearch(array, searchTerm) {
@@ -19,7 +19,7 @@ func testArrayPositiveSearch(T *testing.T) {
 
 func testArrayNegativeSearch(T *testing.T) {
 	random.RandomizeSeed()
-	array := random.RandomArray(100)
+	array := random.Array(100)
 	sorting.QuickSort(array)
 	searchTerm := -42
 	if LinearSearch(array, searchTerm) != BinarySearch(array, searchTerm) {

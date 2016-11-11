@@ -12,7 +12,7 @@ func testBubbleSort(t *testing.T, arr []int) {
 func TestBubbleSort(t *testing.T) {
 	random.RandomizeSeed()
 	for i := 0; i < 100; i++ {
-		arr := random.RandomArray(100)
+		arr := random.Array(100)
 		testBubbleSort(t, arr)
 	}
 }

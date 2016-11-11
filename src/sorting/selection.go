@@ -1,6 +1,6 @@
 package sorting
 
-// Selection sort an array of int
+// SelectionSort sorts an array of int
 func SelectionSort(array []int) {
 	if array == nil {
 		return
