@@ -13,7 +13,8 @@ func arraysEqual(arr1, arr2 []int) bool {
 }
 
 func isIntArraySorted(arr []int) bool {
-	arrCopy := arr
+	arrCopy := make([]int, len(arr))
+	copy(arrCopy, arr)
 	sort.Ints(arrCopy)
 	return arraysEqual(arr, arrCopy)
 }

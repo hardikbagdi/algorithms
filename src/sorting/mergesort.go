@@ -23,6 +23,7 @@ func merge(array []int, leftStartIndex, rightStartIndex int) {
 	if array == nil {
 		return
 	}
+	//make a copy of the two arrays to be merged
 	lenLeft := rightStartIndex - leftStartIndex
 	lenRight := len(array) - rightStartIndex
 	left := make([]int, lenLeft)
@@ -31,6 +32,7 @@ func merge(array []int, leftStartIndex, rightStartIndex int) {
 	copy(right, array[rightStartIndex:])
 	i, j, k := 0, 0, 0
 
+	//merge
 	for i < lenLeft && j < lenRight {
 		if left[i] < right[j] {
 			array[k] = left[i]
@@ -41,12 +43,13 @@ func merge(array []int, leftStartIndex, rightStartIndex int) {
 		}
 		k++
 	}
-	if i < lenLeft {
+	//copy the remaining elements
+	for i < lenLeft {
 		array[k] = left[i]
 		k++
 		i++
 	}
-	if j < lenRight {
+	for j < lenRight {
 		array[k] = right[j]
 		k++
 		j++

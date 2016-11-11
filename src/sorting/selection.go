@@ -12,7 +12,7 @@ func SelectionSort(array []int) {
 			if array[minIndex] > array[j] {
 				minIndex = j
 			}
-			array[minIndex], array[i] = array[i], array[minIndex]
 		}
+		array[minIndex], array[i] = array[i], array[minIndex]
 	}
 }
