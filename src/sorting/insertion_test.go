@@ -1,13 +1,15 @@
 package sorting
 
-import "testing"
-import "random"
+import (
+	"random"
+	"testing"
+)
 
-func TestBubbleSort(t *testing.T) {
+func TestInsertionSort(t *testing.T) {
 	random.RandomizeSeed()
 	for i := 0; i < 10; i++ {
 		arr := random.RandomArray(10000)
-		BubbleSort(arr)
+		InsertionSort(arr)
 		if !isIntArraySorted(arr) {
 			t.Fatal("Failed")
 		}

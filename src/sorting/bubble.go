@@ -4,6 +4,9 @@ package sorting
 
 // Bubble sort an array of int
 func BubbleSort(array []int) {
+	if array == nil {
+		return
+	}
 	length := len(array)
 	for i := 0; i < length; i++ {
 		for j := i; j < length; j++ {
