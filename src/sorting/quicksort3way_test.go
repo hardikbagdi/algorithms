@@ -7,7 +7,7 @@ import (
 
 func testQuickSort3way(t *testing.T, arr []int) {
 	QuickSort3way(arr)
-	if !isIntArraySorted(arr) {
+	if !IsIntArraySorted(arr) {
 		t.Fatal("Failed")
 	}
 }

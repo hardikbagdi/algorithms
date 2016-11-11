@@ -7,7 +7,7 @@ import (
 
 func testMergeSort(t *testing.T, arr []int) {
 	MergeSort(arr)
-	if !isIntArraySorted(arr) {
+	if !IsIntArraySorted(arr) {
 		t.Fatal("Failed")
 	}
 }

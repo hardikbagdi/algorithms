@@ -5,7 +5,7 @@ import "random"
 
 func testBubbleSort(t *testing.T, arr []int) {
 	BubbleSort(arr)
-	if !isIntArraySorted(arr) {
+	if !IsIntArraySorted(arr) {
 		t.Fatal("Failed")
 	}
 }

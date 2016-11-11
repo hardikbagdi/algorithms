@@ -2,7 +2,7 @@ package sorting
 
 // Sort an array of Int using radix sort
 func RadixSort(array []int) {
-	max := getMax(array)
+	max := GetMax(array)
 
 	for i := 1; max/i > 0; i *= 10 {
 		radixsort(array, i)

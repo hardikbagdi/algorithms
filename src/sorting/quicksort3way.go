@@ -10,7 +10,7 @@ func QuickSort3way(array []int) {
 	lo := 0
 	high := len(array) - 1
 	pivotIndex := rand.Intn(len(array))
-	xchg(array, lo, pivotIndex)
+	Xchg(array, lo, pivotIndex)
 	pivot := array[lo]
 	i := lo
 	gt := high
@@ -19,10 +19,10 @@ func QuickSort3way(array []int) {
 		if array[i] == pivot {
 			i++
 		} else if array[i] > pivot {
-			xchg(array, i, gt)
+			Xchg(array, i, gt)
 			gt--
 		} else if array[i] < pivot {
-			xchg(array, i, lt)
+			Xchg(array, i, lt)
 			i++
 			lt++
 		}

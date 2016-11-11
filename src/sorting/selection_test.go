@@ -7,7 +7,7 @@ import (
 
 func testSelectionSort(t *testing.T, arr []int) {
 	SelectionSort(arr)
-	if !isIntArraySorted(arr) {
+	if !IsIntArraySorted(arr) {
 		t.Fatal("Failed")
 	}
 }

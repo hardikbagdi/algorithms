@@ -7,3 +7,7 @@
 - Quick Sort - simple
 - Quick Sort - 3-way
 - Radix Sort
+
+#### Array Search
+- Simple old Linear
+- Binary Search

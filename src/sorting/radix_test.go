@@ -7,7 +7,7 @@ import (
 
 func testRadixSort(t *testing.T, arr []int) {
 	RadixSort(arr)
-	if !isIntArraySorted(arr) {
+	if !IsIntArraySorted(arr) {
 		t.Fatal("Failed")
 	}
 }

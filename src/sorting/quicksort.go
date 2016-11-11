@@ -9,16 +9,16 @@ func QuickSort(array []int) {
 	}
 	length := len(array)
 	pivotIndex := rand.Intn(length)
-	xchg(array, 0, pivotIndex)
+	Xchg(array, 0, pivotIndex)
 	pivot := array[0]
 	last := 0
 	for i := 1; i < length; i++ {
 		if array[i] <= pivot {
 			last++
-			xchg(array, last, i)
+			Xchg(array, last, i)
 		}
 	}
-	xchg(array, 0, last)
+	Xchg(array, 0, last)
 	QuickSort(array[:last])
 	QuickSort(array[last:])
 }

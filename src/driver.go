@@ -1,13 +1,21 @@
 package main
 
-import "fmt"
-import "sorting"
-import "random"
+import (
+	"fmt"
+	"math/rand"
+	"random"
+	"search"
+	"sorting"
+)
 
 func main() {
+	const (
+		arraySize  = 20
+		iterations = 10
+	)
 	random.RandomizeSeed()
-	for i := 0; i < 100; i++ {
-		x := random.RandomArray(20)
+	for i := 0; i < iterations; i++ {
+		x := random.RandomArray(arraySize)
 		fmt.Println("Before sorting")
 		fmt.Println(x)
 		fmt.Println("After sorting")
@@ -19,5 +27,9 @@ func main() {
 		//sorting.QuickSort3way(x)
 		sorting.RadixSort(x)
 		fmt.Println(x)
+		searchTerm := x[rand.Intn(arraySize)]
+		fmt.Println(search.LinearSearch(x, searchTerm))
+		fmt.Println(search.BinarySearch(x, searchTerm))
+
 	}
 }
