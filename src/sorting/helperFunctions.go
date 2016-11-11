@@ -1,6 +1,8 @@
 package sorting
 
 import "sort"
+import "fmt"
+import "math"
 
 func arraysEqual(arr1, arr2 []int) bool {
 
@@ -21,4 +23,19 @@ func isIntArraySorted(arr []int) bool {
 
 func xchg(arr []int, a, b int) {
 	arr[a], arr[b] = arr[b], arr[a]
+}
+
+func printArray(array []int) {
+	fmt.Println("Array: ", array, " length: ", len(array))
+}
+
+func getMax(array []int) (max int) {
+
+	max = math.MinInt64
+	for _, val := range array {
+		if max < val {
+			max = val
+		}
+	}
+	return
 }
