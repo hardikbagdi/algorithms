@@ -6,7 +6,7 @@ import "random"
 
 func main() {
 	random.RandomizeSeed()
-	for i := 0; i < 1; i++ {
+	for i := 0; i < 100; i++ {
 		x := random.RandomArray(20)
 		fmt.Println("Before sorting")
 		fmt.Println(x)
@@ -14,7 +14,8 @@ func main() {
 		//sorting.BubbleSort(x)
 		//sorting.InsertionSort(x)
 		//sorting.SelectionSort(x)
-		sorting.MergeSort(x)
+		//sorting.MergeSort(x)
+		sorting.QuickSort(x)
 		fmt.Println(x)
 	}
 }

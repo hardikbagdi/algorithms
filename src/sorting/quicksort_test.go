@@ -5,16 +5,16 @@ import (
 	"testing"
 )
 
-func testInsertionSort(t *testing.T, arr []int) {
-	InsertionSort(arr)
+func testQuickSort(t *testing.T, arr []int) {
+	QuickSort(arr)
 	if !isIntArraySorted(arr) {
 		t.Fatal("Failed")
 	}
 }
-func TestInsertionSort(t *testing.T) {
+func TestQuickSort(t *testing.T) {
 	random.RandomizeSeed()
 	for i := 0; i < 100; i++ {
 		arr := random.RandomArray(100)
-		testInsertionSort(t, arr)
+		testQuickSort(t, arr)
 	}
 }

@@ -5,13 +5,16 @@ import (
 	"testing"
 )
 
+func testMergeSort(t *testing.T, arr []int) {
+	MergeSort(arr)
+	if !isIntArraySorted(arr) {
+		t.Fatal("Failed")
+	}
+}
 func TestMergeSort(t *testing.T) {
 	random.RandomizeSeed()
-	for i := 0; i < 10; i++ {
-		arr := random.RandomArray(10)
-		MergeSort(arr)
-		if !isIntArraySorted(arr) {
-			t.Fatal("Failed")
-		}
+	for i := 0; i < 100; i++ {
+		arr := random.RandomArray(100)
+		testMergeSort(t, arr)
 	}
 }
