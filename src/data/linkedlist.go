@@ -1,8 +1,5 @@
-// Package linkedlist contains various data structures
-package linkedlist
-
-// Interface to hold data in the nodes
-type Interface interface{}
+// Package data contains various data structures
+package data
 
 // Node represents one node of a linked list
 type Node struct {
@@ -29,8 +26,8 @@ type List struct {
 var nullList *List
 var nulValue Interface
 
-// New returns a new empty list
-func New() *List {
+// NewLinkedList returns a new empty list
+func NewLinkedList() *List {
 	return new(List)
 }
 

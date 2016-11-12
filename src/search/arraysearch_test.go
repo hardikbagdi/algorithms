@@ -22,7 +22,10 @@ func testArrayNegativeSearch(T *testing.T) {
 	array := random.Array(100)
 	sorting.QuickSort(array)
 	searchTerm := -42
-	if LinearSearch(array, searchTerm) != BinarySearch(array, searchTerm) {
+	x := LinearSearch(array, searchTerm)
+	y := BinarySearch(array, searchTerm)
+	z := BinarySearchRecursive(array, searchTerm)
+	if x != y || x != z {
 		T.Fatal("failed")
 	}
 }

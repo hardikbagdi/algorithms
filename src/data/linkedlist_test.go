@@ -1,4 +1,4 @@
-package linkedlist
+package data
 
 import (
 	"github.com/stretchr/testify/assert"
@@ -6,7 +6,7 @@ import (
 )
 
 func TestLinkedList(T *testing.T) {
-	list := New()
+	list := NewLinkedList()
 	assert.Equal(T, 0, list.Size())
 	assert.Equal(T, true, list.Empty())
 	root := list.Front()
