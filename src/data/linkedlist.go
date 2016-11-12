@@ -1,21 +1,7 @@
 // Package data contains various data structures
 package data
 
-// Node represents one node of a linked list
-type Node struct {
-	Value Interface
-	next  *Node
-}
-
-// Next returns the next node
-func (N *Node) Next() *Node {
-	return N.next
-}
-
-// SetNext sets the next pointer in the node
-func (N *Node) SetNext(nextNode *Node) {
-	N.next = nextNode
-}
+import "errors"
 
 // List represents a singly linked list
 type List struct {
@@ -89,12 +75,12 @@ func (L *List) Append(val Interface) *Node {
 }
 
 // InsertAt inserts a new nth node with value 'val'
-func (L *List) InsertAt(val Interface, index int) *Node {
+func (L *List) InsertAt(val Interface, index int) (*Node, error) {
 	if index <= 0 || index > L.count {
-		return nil
+		return nil, errors.New("Specified index out of range")
 	}
 	if index == 1 {
-		return L.PushFront(val)
+		return L.PushFront(val), nil
 	}
 	newNode := new(Node)
 	newNode.Value = val
@@ -109,26 +95,26 @@ func (L *List) InsertAt(val Interface, index int) *Node {
 	cur.next = newNode
 	newNode.next = nextNode
 	L.count++
-	return newNode
+	return newNode, nil
 }
 
 // RemoveAt removes the nth node (1-based indexing)
-func (L *List) RemoveAt(index int) *Node {
+func (L *List) RemoveAt(index int) (*Node, error) {
 	if index <= 0 || index > L.count {
-		return nil
+		return nil, errors.New("Specified index out of range")
 	}
 	if index == 1 {
-		return L.PopFront()
+		//can be certain that PopFront won't give a nil
+		return L.PopFront(), nil
 	}
 	cur := L.root
-	i := 1
-	for ; i < index-1; i++ {
+	for i := 1; i < index-1; i++ {
 		cur = cur.next
 	}
 	nodeRemoved := cur.next
 	cur.next = cur.next.next
 	L.count--
-	return nodeRemoved
+	return nodeRemoved, nil
 }
 
 // Front returns the head of the linked list

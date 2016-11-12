@@ -5,8 +5,8 @@ import (
 	"testing"
 )
 
-func TestLinkedList(T *testing.T) {
-	list := NewLinkedList()
+func TestDoublyList(T *testing.T) {
+	list := NewDoublyList()
 	assert.Equal(T, 0, list.Size())
 	assert.Equal(T, true, list.Empty())
 	root := list.Front()
@@ -25,9 +25,14 @@ func TestLinkedList(T *testing.T) {
 	node = list.Append(2)
 	node2 := new(Node)
 	node2.Value = 2
-	assert.Equal(T, node2, list.NodeAt(2))
+	assert.Equal(T, node2.Value, list.NodeAt(2).Value)
 	node, err = list.RemoveAt(2)
-	assert.Equal(T, node2, node)
+	assert.Equal(T, node2.Value, node.Value)
+	assert.Nil(T, err)
+	node = list.Front()
+	node1 = list.Tail()
+	assert.Equal(T, node, node1)
+	assert.Equal(T, 1, list.Size())
 	list.Append(3)
 	list.Append(4)
 	assert.Equal(T, 4, list.NodeAt(3).Value)
@@ -37,7 +42,9 @@ func TestLinkedList(T *testing.T) {
 	assert.Equal(T, node, list.NodeAt(2))
 	node, err = list.RemoveAt(5)
 	assert.Equal(T, 4, node.Value)
+	assert.Nil(T, err)
 	node, err = list.RemoveAt(4)
+	assert.Nil(T, err)
 	node = list.PopFront()
 	assert.Equal(T, 42, node.Value)
 	list.InsertAt(1, 1)
@@ -48,6 +55,5 @@ func TestLinkedList(T *testing.T) {
 	assert.Nil(T, node)
 	assert.NotNil(T, err)
 	node, err = list.RemoveAt(1)
-	assert.Nil(T, err)
 	assert.Equal(T, 1, node.Value)
 }
