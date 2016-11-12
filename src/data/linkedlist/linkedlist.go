@@ -7,12 +7,22 @@ type Interface interface{}
 // Node represents one node of a linked list
 type Node struct {
 	Value Interface
-	Next  *Node
+	next  *Node
+}
+
+// Next returns the next node
+func (N *Node) Next() *Node {
+	return N.next
+}
+
+// SetNext sets the next pointer in the node
+func (N *Node) SetNext(nextNode *Node) {
+	N.next = nextNode
 }
 
 // List represents a singly linked list
 type List struct {
-	Root  *Node // Why should root be accessible?
+	root  *Node // Why should root be accessible?
 	count int
 }
 
@@ -40,9 +50,9 @@ func (L *List) NodeAt(index int) *Node {
 		return nil
 	}
 	i := 1
-	cur := L.Root
+	cur := L.root
 	for ; i < index; i++ {
-		cur = cur.Next
+		cur = cur.next
 	}
 	return cur
 }
@@ -51,19 +61,19 @@ func (L *List) NodeAt(index int) *Node {
 func (L *List) PushFront(value Interface) *Node {
 	newNode := new(Node)
 	newNode.Value = value
-	newNode.Next = L.Root
-	L.Root = newNode
+	newNode.next = L.root
+	L.root = newNode
 	L.count++
 	return newNode
 }
 
 // PopFront removes the head and returns it
 func (L *List) PopFront() *Node {
-	if L.Root == nil {
+	if L.root == nil {
 		return nil
 	}
-	node := L.Root
-	L.Root = L.Root.Next
+	node := L.root
+	L.root = L.root.next
 	L.count--
 	return node
 }
@@ -72,11 +82,11 @@ func (L *List) PopFront() *Node {
 func (L *List) Append(val Interface) *Node {
 	newNode := new(Node)
 	newNode.Value = val
-	cur := L.Root
-	for cur.Next != nil {
-		cur = cur.Next
+	cur := L.root
+	for cur.next != nil {
+		cur = cur.next
 	}
-	cur.Next = newNode
+	cur.next = newNode
 	L.count++
 	return newNode
 }
@@ -92,15 +102,15 @@ func (L *List) InsertAt(val Interface, index int) *Node {
 	newNode := new(Node)
 	newNode.Value = val
 	i := 1
-	cur := L.Root
+	cur := L.root
 	for ; i < index-1; i++ {
-		cur = cur.Next
+		cur = cur.next
 	}
 	//save current indexth node
-	next := cur.Next
+	nextNode := cur.next
 	//insert the new node
-	cur.Next = newNode
-	newNode.Next = next
+	cur.next = newNode
+	newNode.next = nextNode
 	L.count++
 	return newNode
 }
@@ -113,12 +123,18 @@ func (L *List) RemoveAt(index int) *Node {
 	if index == 1 {
 		return L.PopFront()
 	}
-	cur := L.Root
+	cur := L.root
 	i := 1
 	for ; i < index-1; i++ {
-		cur = cur.Next
+		cur = cur.next
 	}
-	nodeRemoved := cur.Next
-	cur.Next = cur.Next.Next
+	nodeRemoved := cur.next
+	cur.next = cur.next.next
+	L.count--
 	return nodeRemoved
+}
+
+// Front returns the head of the linked list
+func (L *List) Front() *Node {
+	return L.NodeAt(1)
 }
