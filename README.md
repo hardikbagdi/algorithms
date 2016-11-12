@@ -12,3 +12,7 @@
 #### Array Search
 - Simple old Linear
 - Binary Search
+
+### Data Structures
+- Singly LinkedList
+- Stack
