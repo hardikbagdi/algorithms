@@ -83,11 +83,7 @@ func (L *DoublyList) Append(val Interface) *Node {
 	}
 	newNode := new(Node)
 	newNode.Value = val
-	if L.last == nil {
-		panic("we are screwedd")
-	}
 	curLastNode := L.last
-
 	curLastNode.next = newNode
 	newNode.prev = curLastNode
 	L.last = newNode

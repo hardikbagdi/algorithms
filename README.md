@@ -8,11 +8,14 @@
 - Quick Sort - simple
 - Quick Sort - 3-way
 - Radix Sort
+- Heap Sort
 
 #### Array Search
 - Simple old Linear
-- Binary Search
+- Binary Search (iterative & recursive)
 
 ### Data Structures
 - Singly LinkedList
 - Stack
+- Doubly LinkedList
+- Queue
