@@ -1,4 +1,4 @@
-package data
+package linear
 
 import (
 	"github.com/stretchr/testify/assert"

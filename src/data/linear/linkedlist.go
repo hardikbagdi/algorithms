@@ -1,5 +1,5 @@
 // Package data contains various data structures
-package data
+package linear
 
 import "errors"
 

@@ -1,5 +1,5 @@
 // Package data contains various data structures
-package data
+package linear
 
 // Interface to hold data in the nodes
 type Interface interface{}

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"data/linear"
 	"fmt"
 	"math/rand"
 	"random"
@@ -15,7 +16,7 @@ func main() {
 	)
 	random.RandomizeSeed()
 	for i := 0; i < iterations; i++ {
-		x := random.RandomArray(arraySize)
+		x := random.Array(arraySize)
 		fmt.Println("Before sorting")
 		fmt.Println(x)
 		fmt.Println("After sorting")
@@ -30,6 +31,7 @@ func main() {
 		searchTerm := x[rand.Intn(arraySize)]
 		fmt.Println(search.LinearSearch(x, searchTerm))
 		fmt.Println(search.BinarySearch(x, searchTerm))
-
 	}
+	stack := linear.NewStack()
+	stack.Push(1)
 }
