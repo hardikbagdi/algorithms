@@ -1,8 +1,13 @@
-// Package data contains various data structures
+// Package linear contains various data structures
 package linear
 
 // Interface to hold data in the nodes
 type Interface interface{}
+
+// Comparable is for heap comparision; will be extended to all data structures
+type Comparable interface {
+	Compare(Comparable) int
+}
 
 // Node represents one node of a linked list
 type Node struct {

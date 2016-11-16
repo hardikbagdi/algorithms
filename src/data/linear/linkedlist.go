@@ -1,4 +1,3 @@
-// Package data contains various data structures
 package linear
 
 import "errors"
@@ -63,6 +62,9 @@ func (L *List) PopFront() *Node {
 
 // Append adds a node with value val at  the end of the list
 func (L *List) Append(val Interface) *Node {
+	if L.count == 0 {
+		return L.PushFront(val)
+	}
 	newNode := new(Node)
 	newNode.Value = val
 	cur := L.root
