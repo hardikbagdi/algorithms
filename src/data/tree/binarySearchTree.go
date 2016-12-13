@@ -2,8 +2,8 @@ package tree
 
 import (
 	"bytes"
+	"data/linear"
 	"errors"
-	"linear"
 	"strconv"
 )
 
@@ -34,8 +34,9 @@ func (bst *BST) String() string {
 			stack.Push(current)
 			current = current.Left()
 		} else {
-			if stack.Size != 0 {
-				current = stack.Pop()
+			if stack.Size() != 0 {
+				temp, _ := stack.Pop()
+				current = temp.(*Node)
 				buffer.WriteString(" " + strconv.Itoa(current.Value()))
 				current = current.Right()
 			} else {
@@ -79,9 +80,37 @@ func (bst *BST) Insert(value int) error {
 	return nil
 }
 
-func (bst *BST) removeHelper(node *Node, value int) *Node {
+func (bst *BST) getNextPreOrder(node *Node) int {
+	key := node.Value()
+	for node.Left() != nil {
+		node = node.Left()
+		key = node.Value()
+	}
+	return key
+}
 
-	return nil
+func (bst *BST) removeHelper(node *Node, value int) *Node {
+	if node == nil {
+		return node
+	}
+	key := node.Value()
+	if value < key {
+		node.SetLeft(bst.removeHelper(node.Left(), value))
+	} else if key < value {
+		node.SetRight(bst.removeHelper(node.Right(), value))
+	} else {
+		if node.Left() == nil {
+			return node.Right()
+		} else if node.Right() == nil {
+			return node.Left()
+		} else {
+			//next inorder elment
+			key = bst.getNextPreOrder(node.Right())
+			node.SetValue(key)
+			node.SetRight(bst.removeHelper(node.Right(), key))
+		}
+	}
+	return node
 }
 
 // Remove a value from the array
@@ -99,10 +128,12 @@ func (bst *BST) searchHelper(node *Node, value int) bool {
 		return false
 	}
 	key := node.Value()
-	if value < key {
+	if value == key {
+		return true
+	} else if value < key {
 		return bst.searchHelper(node.Left(), value)
 	} else {
-		return bst.searchHelper(node.Left(), value)
+		return bst.searchHelper(node.Right(), value)
 	}
 }
 
