@@ -21,7 +21,6 @@ func NewHeap() *Heap {
 }
 
 func (H *Heap) String() string {
-
 	var buffer bytes.Buffer
 	buffer.WriteString("Count: ")
 	buffer.WriteString(strconv.Itoa(H.count) + "\n[")
