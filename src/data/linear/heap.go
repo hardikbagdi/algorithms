@@ -3,7 +3,6 @@ package linear
 import (
 	"bytes"
 	"errors"
-	"fmt"
 	"strconv"
 )
 
@@ -133,7 +132,6 @@ func (H *Heap) DecreaseKey(oldValue, newValue int) error {
 		return errors.New("Value not present in heap")
 	}
 	index++
-	fmt.Println("new value is", newValue)
 	H.array[index] = newValue
 	H.swimUp(index)
 	return nil
@@ -175,8 +173,6 @@ func (H *Heap) parent(index int) int {
 }
 
 func (H *Heap) swimUp(index int) {
-	fmt.Println("Swimup calle, ind exi s ", index)
-	fmt.Println(H)
 	for index != 1 && H.array[index]-H.array[H.parent(index)] < 0 {
 		H.swap(index, H.parent(index))
 		index = H.parent(index)
