@@ -3,6 +3,7 @@ package linear
 import (
 	"bytes"
 	"errors"
+	"fmt"
 	"strconv"
 )
 
@@ -24,10 +25,11 @@ func (H *Heap) String() string {
 
 	var buffer bytes.Buffer
 	buffer.WriteString("Count: ")
-	buffer.WriteString(strconv.Itoa(H.count) + "\n")
-	for val := range H.array[1 : H.count+1] {
-		buffer.WriteString(strconv.Itoa(val))
+	buffer.WriteString(strconv.Itoa(H.count) + "\n[")
+	for i := 1; i <= H.count; i++ {
+		buffer.WriteString(strconv.Itoa(H.array[i]) + ", ")
 	}
+	buffer.WriteString("]")
 	return buffer.String()
 }
 
@@ -95,7 +97,8 @@ func (H *Heap) RemoveAt(index int) error {
 	return nil
 }
 
-func (H *Heap) deleteRoot() error {
+// DeleteRoot remove the root elements; throws error if heap is empty
+func (H *Heap) DeleteRoot() error {
 	if H.count < 1 {
 		return errors.New("No element in heap")
 	}
@@ -129,6 +132,8 @@ func (H *Heap) DecreaseKey(oldValue, newValue int) error {
 	if !present {
 		return errors.New("Value not present in heap")
 	}
+	index++
+	fmt.Println("new value is", newValue)
 	H.array[index] = newValue
 	H.swimUp(index)
 	return nil
@@ -170,6 +175,8 @@ func (H *Heap) parent(index int) int {
 }
 
 func (H *Heap) swimUp(index int) {
+	fmt.Println("Swimup calle, ind exi s ", index)
+	fmt.Println(H)
 	for index != 1 && H.array[index]-H.array[H.parent(index)] < 0 {
 		H.swap(index, H.parent(index))
 		index = H.parent(index)
@@ -177,19 +184,19 @@ func (H *Heap) swimUp(index int) {
 }
 
 func (H *Heap) left(index int) int {
-	return 2*index + 1
+	return 2 * index
 }
 func (H *Heap) right(index int) int {
-	return 2*index + 2
+	return 2*index + 1
 }
 func (H *Heap) minHeapify(index int) {
 	l := H.left(index)
 	r := H.right(index)
 	min := index
-	if l < H.count+1 && H.array[min] > H.array[l] {
+	if l < H.count+1 && H.array[l] < H.array[min] {
 		min = l
 	}
-	if r < H.count+1 && H.array[min] > H.array[r] {
+	if r < H.count+1 && H.array[r] < H.array[min] {
 		min = r
 	}
 	if index != min {
