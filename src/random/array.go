@@ -11,6 +11,7 @@ func RandomizeSeed() {
 
 // Array allocate a new random array of size 'size with elments 0-999
 func Array(size int) []int {
+	RandomizeSeed()
 	arr := make([]int, size)
 	for i := range arr {
 		arr[i] = rand.Intn(1000)

@@ -3,7 +3,9 @@ package tree
 import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
+	"math/rand"
 	"testing"
+	"time"
 )
 
 func verifyBST(node *Node) bool {
@@ -25,6 +27,8 @@ func verifyBST(node *Node) bool {
 
 func TestBST(T *testing.T) {
 	fmt.Println("BST testing start")
+	t := time.Now()
+	rand.Seed(t.Unix())
 	bst := NewBST()
 	assert.Equal(T, 0, bst.Count())
 
@@ -53,6 +57,15 @@ func TestBST(T *testing.T) {
 	err = bst.Remove(1)
 	assert.NotNil(T, err)
 	verifyBST(bst.root)
+	for i := 1; i < 10000; i++ {
+		bst.Insert(rand.Intn(10000))
+		verifyBST(bst.root)
+	}
+
+	for i := 1; i < 10000; i++ {
+		bst.Remove(rand.Intn(10000))
+		verifyBST(bst.root)
+	}
 
 	fmt.Println(bst)
 	fmt.Println("BST testing end")

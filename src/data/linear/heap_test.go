@@ -3,7 +3,9 @@ package linear
 import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
+	"math/rand"
 	"testing"
+	"time"
 )
 
 func verifyHeap(heap *Heap) bool {
@@ -32,6 +34,8 @@ func verifyHeap(heap *Heap) bool {
 
 func TestHeap(T *testing.T) {
 	fmt.Println("Heap test enter")
+	t := time.Now()
+	rand.Seed(t.Unix())
 	heap := NewHeap()
 	assert.Equal(T, 0, heap.Count())
 
@@ -105,6 +109,31 @@ func TestHeap(T *testing.T) {
 	fmt.Println(heap)
 	ret = verifyHeap(heap)
 	assert.Equal(T, true, ret)
+
+	for j := 1; j < 10000; j++ {
+		heap2 := NewHeap()
+		heap = heap2
+		for i := 1; i < 1000; i++ {
+			//			fmt.Println("Inserting")
+			heap.Insert(rand.Intn(1000))
+			ret = verifyHeap(heap)
+			assert.Equal(T, true, ret)
+		}
+		for i := 1; i < 1000; i++ {
+			//			fmt.Println("Removing")
+			//			fmt.Println(heap)
+			heap.Remove(rand.Intn(1000))
+			ret = verifyHeap(heap)
+			if !ret {
+				fmt.Println("==========================")
+				//				fmt.Println(heap)
+				return
+			}
+			assert.Equal(T, true, ret)
+		}
+	}
+	fmt.Println(heap)
+
 	fmt.Println("Heap test finished")
 }
 

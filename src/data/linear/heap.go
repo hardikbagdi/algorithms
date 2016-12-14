@@ -87,7 +87,11 @@ func (H *Heap) RemoveAt(index int) error {
 	H.swap(H.count, index)
 	H.array[H.count] = 0
 	H.count--
-	H.minHeapify(index)
+	if H.array[index] < H.array[H.parent(index)] {
+		H.swimUp(index)
+	} else {
+		H.minHeapify(index)
+	}
 	if H.count < len(H.array)/4 {
 		H.resize()
 	}
@@ -213,6 +217,8 @@ func (H *Heap) sinkDown(index int) {
 	H.minHeapify(index)
 }
 
+// NaiveMergeHeap takes a heap and inserts all elements in the heap into the caller heap
+// Duplicates are rejected automatically
 func (H *Heap) NaiveMergeHeap(heap1 *Heap) {
 	//some checking
 	if heap1 == nil {
@@ -224,6 +230,7 @@ func (H *Heap) NaiveMergeHeap(heap1 *Heap) {
 	}
 }
 
+// MergeHeap merges two heaps in linear time
 func (H *Heap) MergeHeap(heap1 *Heap) {
 	//some checking
 	if heap1 == nil {
