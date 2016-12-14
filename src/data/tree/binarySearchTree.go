@@ -120,6 +120,7 @@ func (bst *BST) Remove(value int) error {
 		return errors.New("Value not present in BST")
 	}
 	bst.root = bst.removeHelper(bst.root, value)
+	bst.count--
 	return nil
 }
 

@@ -58,7 +58,6 @@ func (H *Heap) ElementAt(index int) (int, bool) {
 		return 0, false
 	}
 	return H.array[index+1], true
-	return 0, false
 }
 
 // Insert adds the value to the heap; expanding the underlying structure if necessary

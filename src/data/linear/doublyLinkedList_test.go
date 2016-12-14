@@ -54,6 +54,6 @@ func TestDoublyList(T *testing.T) {
 	node, err = list.InsertAt(442, 442)
 	assert.Nil(T, node)
 	assert.NotNil(T, err)
-	node, err = list.RemoveAt(1)
+	node, _ = list.RemoveAt(1)
 	assert.Equal(T, 1, node.Value)
 }

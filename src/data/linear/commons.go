@@ -4,7 +4,7 @@ package linear
 // Interface to hold data in the nodes
 type Interface interface{}
 
-// Comparable is for heap comparision; will be extended to all data structures later
+// Comparable is for heap comparison; will be extended to all data structures later
 type Comparable interface {
 	Compare(Comparable) int
 }

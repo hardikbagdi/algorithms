@@ -73,6 +73,7 @@ func TestHeap(T *testing.T) {
 
 	ele, ok = heap.ElementAt(10)
 	assert.Equal(T, false, ok)
+	assert.Equal(T, 0, ele)
 
 	err = heap.RemoveAt(1)
 	assert.Nil(T, err)
