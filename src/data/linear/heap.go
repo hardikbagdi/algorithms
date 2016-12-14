@@ -95,6 +95,16 @@ func (H *Heap) RemoveAt(index int) error {
 	return nil
 }
 
+//EnsureCapacity ensures that the backing array has atleast length of capacity
+func (H *Heap) EnsureCapacity(capacity int) {
+	if len(H.array) < capacity {
+		var newArray []int
+		newArray = make([]int, capacity)
+		copy(newArray, H.array)
+		H.array = newArray
+	}
+}
+
 // DeleteRoot remove the root elements; throws error if heap is empty
 func (H *Heap) DeleteRoot() error {
 	if H.count < 1 {
@@ -202,4 +212,35 @@ func (H *Heap) minHeapify(index int) {
 
 func (H *Heap) sinkDown(index int) {
 	H.minHeapify(index)
+}
+
+func (H *Heap) NaiveMergeHeap(heap1 *Heap) {
+	//some checking
+	if heap1 == nil {
+		return
+	}
+	array := heap1.Array()
+	for value := range array {
+		H.Insert(value)
+	}
+}
+
+func (H *Heap) MergeHeap(heap1 *Heap) {
+	//some checking
+	if heap1 == nil {
+		return
+	}
+	array1 := heap1.Array()
+
+	H.EnsureCapacity(H.Count() + heap1.Count())
+	index := H.Count() + 1
+	for i := 0; i < heap1.Count(); i++ {
+		H.array[index] = array1[i]
+		index++
+	}
+	H.count = H.Count() + heap1.Count()
+
+	for i := H.count / 2; i > 0; i-- {
+		H.minHeapify(i)
+	}
 }

@@ -106,3 +106,45 @@ func TestHeap(T *testing.T) {
 	assert.Equal(T, true, ret)
 	fmt.Println("Heap test finished")
 }
+
+func TestNaiveMergeHeap(T *testing.T) {
+	ret := false
+	heap := NewHeap()
+	heap2 := NewHeap()
+	for i := 1; i < 10; i++ {
+		heap.Insert(i)
+	}
+	for i := 10; i < 20; i++ {
+		heap2.Insert(i)
+	}
+	ret = verifyHeap(heap)
+	assert.Equal(T, true, ret)
+	ret = verifyHeap(heap2)
+	assert.Equal(T, true, ret)
+
+	heap.NaiveMergeHeap(heap2)
+
+	ret = verifyHeap(heap)
+	assert.Equal(T, true, ret)
+}
+
+func TestMergeHeap(T *testing.T) {
+	ret := false
+	heap := NewHeap()
+	heap2 := NewHeap()
+	for i := 1; i < 10; i++ {
+		heap.Insert(i)
+	}
+	for i := 10; i < 20; i++ {
+		heap2.Insert(i)
+	}
+	ret = verifyHeap(heap)
+	assert.Equal(T, true, ret)
+	ret = verifyHeap(heap2)
+	assert.Equal(T, true, ret)
+
+	heap.MergeHeap(heap2)
+
+	ret = verifyHeap(heap)
+	assert.Equal(T, true, ret)
+}
