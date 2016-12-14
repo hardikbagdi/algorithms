@@ -34,7 +34,7 @@ func (L *List) NodeAt(index int) *Node {
 	i := 1
 	cur := L.root
 	for ; i < index; i++ {
-		cur = cur.next
+		cur = cur.Next()
 	}
 	return cur
 }
@@ -55,7 +55,7 @@ func (L *List) PopFront() *Node {
 		return nil
 	}
 	node := L.root
-	L.root = L.root.next
+	L.root = L.root.Next()
 	L.count--
 	return node
 }
@@ -68,8 +68,8 @@ func (L *List) Append(val Interface) *Node {
 	newNode := new(Node)
 	newNode.Value = val
 	cur := L.root
-	for cur.next != nil {
-		cur = cur.next
+	for cur.Next() != nil {
+		cur = cur.Next()
 	}
 	cur.next = newNode
 	L.count++

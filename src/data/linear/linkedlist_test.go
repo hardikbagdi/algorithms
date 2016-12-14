@@ -50,4 +50,7 @@ func TestLinkedList(T *testing.T) {
 	node, err = list.RemoveAt(1)
 	assert.Nil(T, err)
 	assert.Equal(T, 1, node.Value)
+	list = NewLinkedList()
+	list.Append(1)
+	assert.Equal(T, 1, list.Size())
 }

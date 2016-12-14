@@ -102,7 +102,7 @@ func (L *DoublyList) PopBack() *Node {
 		return L.PopFront()
 	}
 	nodeToReturn := L.last
-	L.last = L.last.prev
+	L.last = L.last.Prev()
 	L.count--
 	return nodeToReturn
 }
@@ -125,9 +125,9 @@ func (L *DoublyList) InsertAt(value Interface, index int) (*Node, error) {
 	//save current indexth node
 	nextNode := prev.next
 	//insert the new node
-	prev.next = newNode
+	prev.SetNext(newNode)
 	newNode.next = nextNode
-	nextNode.prev = newNode
+	nextNode.SetPrev(newNode)
 	newNode.prev = prev
 	L.count++
 	return newNode, nil

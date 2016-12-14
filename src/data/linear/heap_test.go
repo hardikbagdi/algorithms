@@ -174,6 +174,7 @@ func TestMergeHeap(T *testing.T) {
 	assert.Equal(T, true, ret)
 
 	heap.MergeHeap(heap2)
+	heap.EnsureCapacity(100)
 
 	ret = verifyHeap(heap)
 	assert.Equal(T, true, ret)

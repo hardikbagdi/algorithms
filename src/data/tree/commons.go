@@ -1,3 +1,4 @@
+// Package tree contains tree data structures and operations
 package tree
 
 // Node represnts a node of a tree
