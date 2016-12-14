@@ -6,6 +6,23 @@ import (
 	"testing"
 )
 
+func verifyBST(node *Node) bool {
+	if node == nil {
+		return true
+	}
+	if node.Left() != nil {
+		if node.Value() < node.Left().Value() {
+			return false
+		}
+	}
+	if node.Right() != nil {
+		if node.Value() > node.Right().Value() {
+			return false
+		}
+	}
+	return verifyBST(node.Left()) && verifyBST(node.Right())
+}
+
 func TestBST(T *testing.T) {
 	fmt.Println("BST testing start")
 	bst := NewBST()
@@ -18,12 +35,25 @@ func TestBST(T *testing.T) {
 	bst.Insert(1)
 	bst.Insert(10)
 	bst.Insert(5)
+	verifyBST(bst.root)
 	fmt.Println(bst)
 	assert.Equal(T, true, bst.Search(1))
 	assert.Equal(T, true, bst.Search(3))
 	assert.Equal(T, false, bst.Search(0))
 	err := bst.Remove(3)
 	assert.Nil(T, err)
+
+	for i := -20; i < 20; i++ {
+		bst.Insert(i)
+	}
+	verifyBST(bst.root)
+	for i := -20; i < 20; i++ {
+		bst.Remove(i)
+	}
+	err = bst.Remove(1)
+	assert.NotNil(T, err)
+	verifyBST(bst.root)
+
 	fmt.Println(bst)
 	fmt.Println("BST testing end")
 }
