@@ -36,13 +36,3 @@ func (N *Node) SetLeft(leftNode *Node) {
 func (N *Node) SetRight(rightNode *Node) {
 	N.right = rightNode
 }
-
-// Tree represents a binary tree data type
-type Tree struct {
-	root *Node
-}
-
-// Root returns the root node of the tree
-func (T *Tree) Root() *Node {
-	return T.root
-}

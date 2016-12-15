@@ -9,15 +9,21 @@ import (
 
 // BST represents a binary search tree
 type BST struct {
-	root  *Node
+	tree  *Tree
 	count int
 }
 
 // NewBST returns a new BST
 func NewBST() *BST {
 	bst := new(BST)
+	bst.tree = new(Tree)
 	bst.count = 0
 	return bst
+}
+
+// Tree returns the backing binary tree
+func (bst *BST) Tree() *Tree {
+	return bst.tree
 }
 
 // String returns string representation of the BST
@@ -27,7 +33,7 @@ func (bst *BST) String() string {
 	buffer.WriteString(strconv.Itoa(bst.count) + "\n")
 	stack := linear.NewStack()
 
-	current := bst.root
+	current := bst.Tree().Root()
 	done := false
 	for !done {
 		if current != nil {
@@ -75,7 +81,8 @@ func (bst *BST) Insert(value int) error {
 	if present {
 		return errors.New("Value already in BST")
 	}
-	bst.root = bst.insertHelper(bst.root, value)
+	newRoot := bst.insertHelper(bst.Tree().Root(), value)
+	bst.Tree().SetRoot(newRoot)
 	bst.count++
 	return nil
 }
@@ -119,7 +126,8 @@ func (bst *BST) Remove(value int) error {
 	if !present {
 		return errors.New("Value not present in BST")
 	}
-	bst.root = bst.removeHelper(bst.root, value)
+	newRoot := bst.removeHelper(bst.Tree().Root(), value)
+	bst.Tree().SetRoot(newRoot)
 	bst.count--
 	return nil
 }
@@ -140,5 +148,5 @@ func (bst *BST) searchHelper(node *Node, value int) bool {
 
 // Search performs search  on the backing array
 func (bst *BST) Search(value int) bool {
-	return bst.searchHelper(bst.root, value)
+	return bst.searchHelper(bst.Tree().Root(), value)
 }

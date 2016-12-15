@@ -39,7 +39,7 @@ func TestBST(T *testing.T) {
 	bst.Insert(1)
 	bst.Insert(10)
 	bst.Insert(5)
-	verifyBST(bst.root)
+	verifyBST(bst.Tree().Root())
 	fmt.Println(bst)
 	assert.Equal(T, true, bst.Search(1))
 	assert.Equal(T, true, bst.Search(3))
@@ -50,21 +50,21 @@ func TestBST(T *testing.T) {
 	for i := -20; i < 20; i++ {
 		bst.Insert(i)
 	}
-	verifyBST(bst.root)
+	verifyBST(bst.Tree().Root())
 	for i := -20; i < 20; i++ {
 		bst.Remove(i)
 	}
 	err = bst.Remove(1)
 	assert.NotNil(T, err)
-	verifyBST(bst.root)
+	verifyBST(bst.Tree().Root())
 	for i := 1; i < 10000; i++ {
 		bst.Insert(rand.Intn(10000))
-		verifyBST(bst.root)
+		verifyBST(bst.Tree().Root())
 	}
 
 	for i := 1; i < 10000; i++ {
 		bst.Remove(rand.Intn(10000))
-		verifyBST(bst.root)
+		verifyBST(bst.Tree().Root())
 	}
 
 	fmt.Println(bst)
