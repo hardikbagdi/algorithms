@@ -7,6 +7,11 @@ type Tree struct {
 	root *Node
 }
 
+// NewTree returns a new empty Tree
+func NewTree() *Tree {
+	return new(Tree)
+}
+
 // Root returns the root node of the tree
 func (T *Tree) Root() *Node {
 	return T.root
@@ -17,8 +22,19 @@ func (T *Tree) SetRoot(node *Node) {
 	T.root = node
 }
 
+func (T *Tree) Contains(value int) bool {
+	for node := range T.PreOrderIterator() {
+		if node.Value() == value {
+			//FIXME What happens to goroutine and channel;Garbage generated?
+			return true
+		}
+	}
+	return false
+}
+
 // PreOrderIterator returns  a channel of *Node which is pre-order traversal
 func (T *Tree) PreOrderIterator() chan *Node {
+	//TODO when changing to general trees; change channel to  interface{}
 	ch := make(chan *Node, 10)
 	go func() {
 		helperPreOrder(T.Root(), ch)

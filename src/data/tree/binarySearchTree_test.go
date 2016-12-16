@@ -67,6 +67,6 @@ func TestBST(T *testing.T) {
 		verifyBST(bst.Tree().Root())
 	}
 
-	fmt.Println(bst)
+	//fmt.Println(bst)
 	fmt.Println("BST testing end")
 }

@@ -8,7 +8,7 @@ import (
 
 func TestTree(T *testing.T) {
 	fmt.Println("Tree testing start")
-	t := new(Tree)
+	t := NewTree()
 	assert.NotNil(T, t)
 	assert.Nil(T, t.Root())
 	root := new(Node)
@@ -54,5 +54,7 @@ func TestTree(T *testing.T) {
 		assert.Equal(T, postOrder[i], value.Value())
 		i++
 	}
+	assert.Equal(T, true, t.Contains(3))
+	assert.Equal(T, false, t.Contains(42))
 	fmt.Println("BST testing end")
 }
