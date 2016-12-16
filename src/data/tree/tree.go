@@ -1,7 +1,5 @@
 package tree
 
-import ()
-
 // Tree represents a binary tree data type
 type Tree struct {
 	root *Node
@@ -22,6 +20,7 @@ func (T *Tree) SetRoot(node *Node) {
 	T.root = node
 }
 
+// Contains returns true if the elements is present in the tree
 func (T *Tree) Contains(value int) bool {
 	for node := range T.PreOrderIterator() {
 		if node.Value() == value {

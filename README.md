@@ -19,5 +19,8 @@
 - Stack
 - Doubly LinkedList
 - Queue
+- Dequeue
 - Heap using an array
+- Binary Tree
 - Binary Search Tree
+- Heap using A Tree -- incomplete

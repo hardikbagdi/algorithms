@@ -23,4 +23,5 @@ func TestDequeue(T *testing.T) {
 	assert.NotNil(T, err)
 	v, err = dequeue.PollFirst()
 	assert.NotNil(T, err)
+	assert.Equal(T, nil, v)
 }

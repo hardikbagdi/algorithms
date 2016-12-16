@@ -3,8 +3,8 @@ package tree
 
 // Node represnts a node of a tree
 type Node struct {
-	value       int
-	left, right *Node
+	value               int
+	left, right, parent *Node
 }
 
 // Value returns the integer stored in the Node
@@ -27,6 +27,11 @@ func (N *Node) Right() *Node {
 	return N.right
 }
 
+// Parent returns the pointer to the parent of the node
+func (N *Node) Parent() *Node {
+	return N.parent
+}
+
 // SetLeft sets the left child of the Node
 func (N *Node) SetLeft(leftNode *Node) {
 	N.left = leftNode
@@ -35,4 +40,9 @@ func (N *Node) SetLeft(leftNode *Node) {
 // SetRight sets the right child of the Node
 func (N *Node) SetRight(rightNode *Node) {
 	N.right = rightNode
+}
+
+// SetParent sets the parent of the Node
+func (N *Node) SetParent(parentNode *Node) {
+	N.parent = parentNode
 }
