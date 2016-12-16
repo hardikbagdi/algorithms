@@ -31,6 +31,9 @@ func TestHeap(T *testing.T) {
 	h := NewHeap()
 	assert.NotNil(T, h)
 	assert.Nil(T, h.Root())
+	assert.NotNil(T, h.Tree())
+	err := h.DeleteRoot()
+	assert.NotNil(T, err)
 	h.Insert(42)
 	assert.Equal(T, 1, h.Count())
 	assert.NotNil(T, h.Root())
@@ -38,7 +41,7 @@ func TestHeap(T *testing.T) {
 	n := h.Root()
 	assert.NotNil(T, n.Left())
 	assert.Nil(T, n.Right())
-	err := h.Insert(100)
+	err = h.Insert(100)
 	assert.NotNil(T, err)
 	err = h.Insert(101)
 	assert.Nil(T, err)
@@ -57,9 +60,42 @@ func TestHeap(T *testing.T) {
 	assert.NotNil(T, err)
 	err = h.IncreaseKey(10, 1000)
 	assert.Nil(T, err)
+	fmt.Println("pre order")
 	printHeap(h)
 	assert.Equal(T, true, verifyHeap(h.Root()))
 	assert.Equal(T, 5, h.Count())
+
+	inOrder := []int{100, 42, 1000, 20, 101}
+	postOrder := []int{100, 1000, 42, 101, 20}
+	i := 0
+	fmt.Println("iterators")
+	fmt.Println()
+	fmt.Println("pre order")
+	printHeap(h)
+	fmt.Println()
+	fmt.Println("inorder")
+	for val := range h.InOrderIterator() {
+		fmt.Printf("%d ", val.Value())
+		assert.Equal(T, inOrder[i], val.Value())
+		i++
+	}
+	i = 0
+	fmt.Println()
+	fmt.Println("post-order")
+	for val := range h.PostOrderIterator() {
+		fmt.Printf("%d ", val.Value())
+		assert.Equal(T, postOrder[i], val.Value())
+		i++
+	}
+	fmt.Println()
+	//postOrder := []int{}
+
+	err = h.IncreaseKey(10000, 12)
+	assert.NotNil(T, err)
+	err = h.IncreaseKey(-20, 20)
+	assert.NotNil(T, err)
+	err = h.DecreaseKey(100, 100)
+	assert.NotNil(T, err)
 
 	fmt.Println("deleting root")
 	err = h.DeleteRoot()
@@ -93,6 +129,21 @@ func TestHeap(T *testing.T) {
 	assert.Equal(T, true, verifyHeap(h.Root()))
 	assert.Equal(T, 0, h.Count())
 	assert.Nil(T, h.Root())
+	printHeap(h)
+
+	h.Insert(4242)
+	printHeap(h)
+	assert.Equal(T, 1, h.Count())
+	assert.NotNil(T, h.Root())
+	assert.Nil(T, h.Root().Left())
+	assert.Nil(T, h.Root().Right())
+	h.Insert(100)
+	assert.Nil(T, h.Root().Right())
+	assert.Equal(T, 100, h.Root().Value())
+	err = h.DecreaseKey(101, 40)
+	assert.NotNil(T, err)
+	err = h.DecreaseKey(4242, 40)
+	assert.Nil(T, err)
 	printHeap(h)
 	fmt.Println("Heap testing end")
 }
