@@ -48,7 +48,7 @@ func (H *Heap) Contains(value int) bool {
 }
 
 // NodeWithValue does the same thing as search but return the pointer to the node
-//TODO decide if this should really be exported
+//TODO decide if this should really be exported or contains could return bool and node pointer
 func (H *Heap) NodeWithValue(value int) *Node {
 	for node := range H.PreOrderIterator() {
 		if node.Value() == value {
@@ -89,7 +89,7 @@ func (H *Heap) Insert(value int) error {
 	return nil
 }
 
-// DeleteRoot remove the root elements; throws error if heap is empty
+// DeleteRoot removes the root elements; throws error if heap is empty
 func (H *Heap) DeleteRoot() error {
 	if H.count < 1 {
 		return errors.New("No element in heap")
@@ -100,11 +100,33 @@ func (H *Heap) DeleteRoot() error {
 
 // Remove removes the value from the heap
 func (H *Heap) Remove(value int) error {
-	present := H.Contains(value)
-	if !present {
+	node := H.NodeWithValue(value)
+	if node == nil {
 		return errors.New("Value not present in heap")
 	}
 	//TODO
+	//TODO test for only one node and with two or there nodes
+	//get last node
+	lastNode := H.getLastNode()
+	//swap with last node
+	H.swap(lastNode, node)
+	//remove the last node from the tree
+	parentLastNode := lastNode.Parent()
+	// only one node is present in the tree
+	if parentLastNode == nil {
+		H.SetRoot(nil)
+		H.count--
+		return nil
+	}
+	if parentLastNode.Left() == lastNode {
+		parentLastNode.SetLeft(nil)
+	} else {
+		parentLastNode.SetRight(nil)
+	}
+	lastNode.SetParent(nil)
+	H.count--
+	//sink down the 'node'
+	H.sinkDown(node)
 	return nil
 }
 
@@ -138,12 +160,18 @@ func (H *Heap) IncreaseKey(oldValue, newValue int) error {
 
 // swap will swap the values inside the nodes and not the nodes
 func (H *Heap) swap(a, b *Node) {
+	if a == nil || b == nil {
+		return
+	}
 	backup := a.Value()
 	a.SetValue(b.Value())
 	b.SetValue(backup)
 }
 
 func (H *Heap) swimUp(node *Node) {
+	if node == nil {
+		return
+	}
 	if node.Parent() == nil {
 		return
 	}
@@ -154,6 +182,9 @@ func (H *Heap) swimUp(node *Node) {
 }
 
 func (H *Heap) sinkDown(node *Node) {
+	if node == nil {
+		return
+	}
 	min := node
 	if node.Left() != nil && node.Left().Value() < min.Value() {
 		min = node.Left()
@@ -167,6 +198,7 @@ func (H *Heap) sinkDown(node *Node) {
 	}
 }
 
+// TODO cache the last node rather than caculating every time
 func (H *Heap) appendLast(node *Node) {
 	c := H.count
 	c++
@@ -193,6 +225,22 @@ func (H *Heap) appendLast(node *Node) {
 	node.SetParent(cur)
 }
 
+func (H *Heap) getLastNode() *Node {
+	//TODO get ride of this special case
+	//if H.Count == 1 {
+	//	return H.Root()
+	//}
+	binary := intToBinaryString(H.Count())
+	cur := H.Root()
+	for i := 1; i < len(binary); i++ {
+		if binary[i] == '0' {
+			cur = cur.Left()
+		} else {
+			cur = cur.Right()
+		}
+	}
+	return cur
+}
 func intToBinaryString(number int) string {
 	str := ""
 	index := 0

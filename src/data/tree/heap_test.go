@@ -6,6 +6,19 @@ import (
 	"testing"
 )
 
+func verifyHeap(node *Node) bool {
+	if node != nil {
+		if node.Left() != nil && node.Left().Value() < node.Value() {
+			return false
+		}
+		if node.Right() != nil && node.Right().Value() < node.Value() {
+			return false
+		}
+		return verifyHeap(node.Left()) && verifyHeap(node.Right())
+	}
+	return true
+}
+
 func printHeap(h *Heap) {
 	fmt.Println()
 	for val := range h.PreOrderIterator() {
@@ -33,6 +46,7 @@ func TestHeap(T *testing.T) {
 	assert.Equal(T, h.Root(), h.Root().Left().Parent())
 	assert.Equal(T, h.Root(), h.Root().Right().Parent())
 	printHeap(h)
+	assert.Equal(T, true, verifyHeap(h.Root()))
 
 	h.Insert(20)
 	assert.Equal(T, 20, h.Root().Value())
@@ -44,7 +58,42 @@ func TestHeap(T *testing.T) {
 	err = h.IncreaseKey(10, 1000)
 	assert.Nil(T, err)
 	printHeap(h)
+	assert.Equal(T, true, verifyHeap(h.Root()))
+	assert.Equal(T, 5, h.Count())
 
+	fmt.Println("deleting root")
+	err = h.DeleteRoot()
+	assert.Nil(T, err)
+	assert.Equal(T, true, verifyHeap(h.Root()))
+	assert.Equal(T, 4, h.Count())
+	printHeap(h)
+	fmt.Println("deleting 1000")
+	err = h.Remove(1000)
+	assert.Nil(T, err)
+	assert.Equal(T, true, verifyHeap(h.Root()))
+	assert.Equal(T, 3, h.Count())
+	printHeap(h)
+	fmt.Println("deleting 101")
+	err = h.Remove(101)
+	assert.Nil(T, err)
+	assert.Equal(T, true, verifyHeap(h.Root()))
+	assert.Equal(T, 2, h.Count())
+	printHeap(h)
+	fmt.Println("deleting 100")
+	err = h.Remove(100)
+	assert.Nil(T, err)
+	assert.Equal(T, true, verifyHeap(h.Root()))
+	assert.Equal(T, 1, h.Count())
+	printHeap(h)
+	err = h.Remove(4242)
+	assert.NotNil(T, err)
+	fmt.Println("deleting root")
+	err = h.DeleteRoot()
+	assert.Nil(T, err)
+	assert.Equal(T, true, verifyHeap(h.Root()))
+	assert.Equal(T, 0, h.Count())
+	assert.Nil(T, h.Root())
+	printHeap(h)
 	fmt.Println("Heap testing end")
 }
 func TestIntToBinaryString(T *testing.T) {
