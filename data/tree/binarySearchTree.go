@@ -2,8 +2,8 @@ package tree
 
 import (
 	"bytes"
-	"data/linear"
 	"errors"
+	"github.com/hardikbagdi/algorithms/data/linear"
 	"strconv"
 )
 

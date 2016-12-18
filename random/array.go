@@ -1,3 +1,4 @@
+// Package random is a wrapper around golang's math/rand
 package random
 
 import "math/rand"

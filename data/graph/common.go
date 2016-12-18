@@ -2,7 +2,7 @@
 package graph
 
 import (
-	"data/linear"
+	"github.com/hardikbagdi/algorithms/data/linear"
 
 	"errors"
 	"fmt"

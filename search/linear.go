@@ -1,3 +1,4 @@
+// Package search has methods to search an element from a slice
 package search
 
 // LinearSearch searches for searchTerm in the 'array' and returns the index if found
