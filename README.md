@@ -23,4 +23,12 @@
 - Heap using an array
 - Binary Tree
 - Binary Search Tree
-- Heap using A Tree -- incomplete
+- Heap using A Tree
+- Graph
+
+# Todo
+- Graph - undirected;directed;weighted?
+- Matrix representation of Graph
+- DFS, BFS, Dijkstra
+- detect cycle in graph
+- union-find data structure? (not sure)
