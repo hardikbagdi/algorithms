@@ -1,7 +1,7 @@
 package sorting
 
 import (
-	"random"
+	"github.com/hardikbagdi/algorithms/random"
 	"testing"
 )
 

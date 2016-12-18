@@ -1,9 +1,9 @@
 package search
 
 import (
+	"github.com/hardikbagdi/algorithms/random"
+	"github.com/hardikbagdi/algorithms/sorting"
 	"math/rand"
-	"random"
-	"sorting"
 	"testing"
 )
 

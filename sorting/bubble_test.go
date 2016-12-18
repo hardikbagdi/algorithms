@@ -1,7 +1,7 @@
 package sorting
 
 import "testing"
-import "random"
+import "github.com/hardikbagdi/algorithms/random"
 
 func testBubbleSort(t *testing.T, arr []int) {
 	BubbleSort(arr)
