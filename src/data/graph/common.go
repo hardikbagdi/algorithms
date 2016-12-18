@@ -82,11 +82,13 @@ func (G *Graph) AddEdge(edge Edge) error {
 	if G.Present(edge) {
 		return errors.New("The given edge is already present in the graph")
 	}
-	edge2 := G.reverseEdge(edge)
+	if edge.Src() != edge.Dest() {
+		edge2 := G.reverseEdge(edge)
+		destList := G.adjList[edge.Dest()]
+		destList.PushFront(edge2)
+	}
 	srcList := G.adjList[edge.Src()]
-	destList := G.adjList[edge.Dest()]
 	srcList.PushFront(edge)
-	destList.PushFront(edge2)
 	G.e++
 	return nil
 }
@@ -99,16 +101,18 @@ func (G *Graph) DeleteEdge(edge Edge) error {
 	if !G.Present(edge) {
 		return errors.New("The edge to delete is not  present in the graph")
 	}
-	edge2 := G.reverseEdge(edge)
+	if edge.Src() != edge.Dest() {
+		edge2 := G.reverseEdge(edge)
+		destList := G.adjList[edge.Dest()]
+		G.deleteHelper(destList, edge2)
+	}
 	srcList := G.adjList[edge.Src()]
-	destList := G.adjList[edge.Dest()]
-	G.deleteHelper(*srcList, edge)
-	G.deleteHelper(*destList, edge2)
+	G.deleteHelper(srcList, edge)
 	G.e--
 	return nil
 }
 
-func (G *Graph) deleteHelper(list linear.List, edgeToDelete Edge) {
+func (G *Graph) deleteHelper(list *linear.List, edgeToDelete Edge) {
 	i := 1
 	ch, _ := G.AdjEdges(edgeToDelete.Src())
 	for edge := range ch {
@@ -153,11 +157,11 @@ func (G *Graph) AdjEdges(source int) (chan Edge, error) {
 	}(head, ch)
 	return ch, nil
 }
-func (G *Graph) printGraph() {
+func (G *Graph) print() {
 	fmt.Println("Graph:")
 	fmt.Println("Nodes: ", G.Nodes(), ", Edges: ", G.Edges())
 	for i := range G.adjList {
-		fmt.Println("Node: ", i, "\nEdges: ")
+		fmt.Println("\nNode: ", i, "\nEdges: ")
 		ch, _ := G.AdjEdges(i)
 		for edge := range ch {
 			fmt.Printf(" (%d,%d)", edge.Src(), edge.Dest())
