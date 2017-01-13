@@ -2,8 +2,9 @@ package graph
 
 import (
 	"log"
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestGraph(T *testing.T) {

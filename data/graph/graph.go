@@ -8,45 +8,6 @@ import (
 	"log"
 )
 
-// Edge represents and edge in a Graph
-type Edge struct {
-	src, dst, weight int
-}
-
-// Src return the source of an edge if the edge is directed.
-// For an undirected edge, it's one of the endpoints.
-func (E *Edge) Src() int {
-	return E.src
-}
-
-// Dest return the destination of an edge if the edge is directed.
-// For an undirected edge, it's one of the endpoints.
-func (E *Edge) Dest() int {
-	return E.dst
-}
-
-// Weight returns the weight of an edge.
-// For an unweighted graph, this should be ignored.
-func (E *Edge) Weight() int {
-	return E.weight
-}
-
-// SetSrc sets the source node of an edge.
-func (E *Edge) SetSrc(newSrc int) {
-	E.src = newSrc
-}
-
-// SetDest sets the destination node of an edge.
-// For an undirected graph, this sets another end point
-func (E *Edge) SetDest(newDest int) {
-	E.dst = newDest
-}
-
-// SetWeight sets the weight of an edge.
-func (E *Edge) SetWeight(newWeight int) {
-	E.weight = newWeight
-}
-
 // Graph represents an undirected graph
 type Graph struct {
 	v, e    int
@@ -117,10 +78,7 @@ func (G *Graph) deleteHelper(list *linear.List, edgeToDelete Edge) {
 	ch, _ := G.AdjEdges(edgeToDelete.Src())
 	for edge := range ch {
 		if edgeToDelete.Dest() == edge.Dest() {
-			_, err := list.RemoveAt(i)
-			if err != nil {
-				//panic("unstable")
-			}
+			list.RemoveAt(i)
 			return
 		}
 		i++
@@ -227,6 +185,48 @@ func (G *Graph) bfsHelper(source int, visited []bool, ch chan int) {
 			if !visited[dest] {
 				q.Enqueue(dest)
 				visited[dest] = true
+			}
+		}
+	}
+}
+
+// DFS returns a depth-first search iteration channel from a node
+func (G *Graph) DFS(source int) (chan int, error) {
+	if !G.validNode(source) {
+		return nil, errors.New("The source is not a valid node in the graph")
+	}
+	ch := make(chan int, 20)
+	visited := make([]bool, G.Nodes())
+	go func(source int) {
+		G.dfsHelper(source, ch, visited)
+		for i, value := range visited {
+			if !value {
+				G.dfsHelper(i, ch, visited)
+			}
+		}
+		close(ch)
+	}(source)
+	return ch, nil
+}
+
+func (G *Graph) dfsHelper(source int, ch chan int, visited []bool) {
+	stack := linear.NewStack()
+	log.Println("fresh Pushing ", source)
+	stack.Push(source)
+	for stack.Size() != 0 {
+		cur, _ := stack.Pop()
+		node := cur.(int)
+		if !visited[node] {
+			ch <- node
+			log.Println("DFS EDGE: ", node)
+			visited[node] = true
+		}
+		edges, _ := G.AdjEdges(node)
+		for edge := range edges {
+			dest := edge.Dest()
+			if !visited[dest] {
+				log.Println("Pushing ", dest)
+				stack.Push(dest)
 			}
 		}
 	}

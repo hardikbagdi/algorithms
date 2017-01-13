@@ -1,10 +1,10 @@
 package tree
 
 import (
-	"log"
 	"github.com/stretchr/testify/assert"
-	"testing"
 	"io/ioutil"
+	"log"
+	"testing"
 )
 
 func verifyHeap(node *Node) bool {
