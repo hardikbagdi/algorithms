@@ -1,4 +1,4 @@
-[![Go Report Card](https://goreportcard.com/badge/github.com/hardikbagdi/algorithms)](https://goreportcard.com/report/github.com/hardikbagdi/algorithms)
+# Algorithms [![GoDoc](https://godoc.org/github.com/hardikbagdi/algorithms?status.svg)](http://godoc.org/github.com/hardikbagdi/algorithms) [![Go Report Card](https://goreportcard.com/badge/github.com/hardikbagdi/algorithms)](https://goreportcard.com/report/github.com/hardikbagdi/algorithms)
 [![Build Status](https://travis-ci.org/hardikbagdi/algorithms.png)](https://travis-ci.org/hardikbagdi/algorithms)
 ### Basic Algorithms
 #### Sorting

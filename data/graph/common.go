@@ -117,7 +117,10 @@ func (G *Graph) deleteHelper(list *linear.List, edgeToDelete Edge) {
 	ch, _ := G.AdjEdges(edgeToDelete.Src())
 	for edge := range ch {
 		if edgeToDelete.Dest() == edge.Dest() {
-			list.RemoveAt(i)
+			_, err := list.RemoveAt(i)
+			if err != nil {
+				//panic("unstable")
+			}
 			return
 		}
 		i++
@@ -135,6 +138,7 @@ func (G *Graph) Present(edgeToFind Edge) bool {
 			return true
 		}
 	}
+	// TODO should check in edge.Dest() list as well?
 	return false
 }
 
@@ -168,6 +172,7 @@ func (G *Graph) print() {
 		}
 	}
 }
+
 func (G *Graph) validEdge(edge Edge) bool {
 	if G.validNode(edge.Src()) && G.validNode(edge.Dest()) {
 		return true
@@ -186,4 +191,43 @@ func (G *Graph) reverseEdge(edge Edge) Edge {
 	edge2.SetSrc(edge.Dest())
 	edge2.SetDest(edge.Src())
 	return edge2
+}
+
+// BFS returns a breadth-first search iteration channel from a node
+func (G *Graph) BFS(source int) (chan int, error) {
+	if !G.validNode(source) {
+		return nil, errors.New("The source is not a valid node in the graph")
+	}
+	ch := make(chan int, 20)
+	go func(source int) {
+		visited := make([]bool, G.Nodes())
+		G.bfsHelper(source, visited, ch)
+		for i, value := range visited {
+			if !value {
+				G.bfsHelper(i, visited, ch)
+			}
+		}
+		close(ch)
+	}(source)
+	return ch, nil
+}
+
+func (G *Graph) bfsHelper(source int, visited []bool, ch chan int) {
+	q := linear.NewQueue()
+	q.Enqueue(source)
+	visited[source] = true
+	for q.Size() != 0 {
+		cur, _ := q.Dequeue()
+		node, _ := cur.(int)
+		ch <- node
+		fmt.Println("BFS EDGE: ", node)
+		edges, _ := G.AdjEdges(node)
+		for edge := range edges {
+			dest := edge.Dest()
+			if !visited[dest] {
+				q.Enqueue(dest)
+				visited[dest] = true
+			}
+		}
+	}
 }
