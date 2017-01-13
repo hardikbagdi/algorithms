@@ -1,9 +1,10 @@
 package graph
 
 import (
-	"fmt"
+	"log"
 	"github.com/stretchr/testify/assert"
 	"testing"
+	"io/ioutil"
 )
 
 func test1(assert *assert.Assertions) {
@@ -34,7 +35,7 @@ func test2(assert *assert.Assertions) {
 	g := New(11)
 	var edge Edge
 	edges := [][]int{{0, 2}, {0, 1}, {0, 3}, {1, 3}, {1, 4}, {3, 4}, {4, 5}, {6, 7}, {6, 9}, {6, 10}, {7, 10}, {8, 9}}
-	fmt.Println("Number of Edges : ", len(edges))
+	log.Println("Number of Edges : ", len(edges))
 	for i := 0; i < len(edges); i++ {
 		edge.SetSrc(edges[i][0])
 		edge.SetDest(edges[i][1])
@@ -62,9 +63,10 @@ func test2(assert *assert.Assertions) {
 }
 
 func TestBFSGraph(T *testing.T) {
+	log.SetOutput(ioutil.Discard)
 	assert := assert.New(T)
-	fmt.Println("testing BFS start")
+	log.Println("testing BFS start")
 	//test1(assert)
 	test2(assert)
-	fmt.Println("testing BFS end")
+	log.Println("testing BFS end")
 }

@@ -5,7 +5,7 @@ import (
 	"github.com/hardikbagdi/algorithms/data/linear"
 
 	"errors"
-	"fmt"
+	"log"
 )
 
 // Edge represents and edge in a Graph
@@ -162,13 +162,13 @@ func (G *Graph) AdjEdges(source int) (chan Edge, error) {
 	return ch, nil
 }
 func (G *Graph) print() {
-	fmt.Println("Graph:")
-	fmt.Println("Nodes: ", G.Nodes(), ", Edges: ", G.Edges())
+	log.Println("Graph:")
+	log.Println("Nodes: ", G.Nodes(), ", Edges: ", G.Edges())
 	for i := range G.adjList {
-		fmt.Println("\nNode: ", i, "\nEdges: ")
+		log.Println("\nNode: ", i, "\nEdges: ")
 		ch, _ := G.AdjEdges(i)
 		for edge := range ch {
-			fmt.Printf(" (%d,%d)", edge.Src(), edge.Dest())
+			log.Printf(" (%d,%d)", edge.Src(), edge.Dest())
 		}
 	}
 }
@@ -220,7 +220,7 @@ func (G *Graph) bfsHelper(source int, visited []bool, ch chan int) {
 		cur, _ := q.Dequeue()
 		node, _ := cur.(int)
 		ch <- node
-		fmt.Println("BFS EDGE: ", node)
+		log.Println("BFS EDGE: ", node)
 		edges, _ := G.AdjEdges(node)
 		for edge := range edges {
 			dest := edge.Dest()

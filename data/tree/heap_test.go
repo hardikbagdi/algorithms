@@ -1,9 +1,10 @@
 package tree
 
 import (
-	"fmt"
+	"log"
 	"github.com/stretchr/testify/assert"
 	"testing"
+	"io/ioutil"
 )
 
 func verifyHeap(node *Node) bool {
@@ -20,14 +21,15 @@ func verifyHeap(node *Node) bool {
 }
 
 func printHeap(h *Heap) {
-	fmt.Println()
+	log.Println()
 	for val := range h.PreOrderIterator() {
-		fmt.Printf("%d ", val.Value())
+		log.Printf("%d ", val.Value())
 	}
-	fmt.Println()
+	log.Println()
 }
 func TestHeap(T *testing.T) {
-	fmt.Println("Heap testing start")
+	log.SetOutput(ioutil.Discard)
+	log.Println("Heap testing start")
 	h := NewHeap()
 	assert.NotNil(T, h)
 	assert.Nil(T, h.Root())
@@ -60,7 +62,7 @@ func TestHeap(T *testing.T) {
 	assert.NotNil(T, err)
 	err = h.IncreaseKey(10, 1000)
 	assert.Nil(T, err)
-	fmt.Println("pre order")
+	log.Println("pre order")
 	printHeap(h)
 	assert.Equal(T, true, verifyHeap(h.Root()))
 	assert.Equal(T, 5, h.Count())
@@ -68,26 +70,26 @@ func TestHeap(T *testing.T) {
 	inOrder := []int{100, 42, 1000, 20, 101}
 	postOrder := []int{100, 1000, 42, 101, 20}
 	i := 0
-	fmt.Println("iterators")
-	fmt.Println()
-	fmt.Println("pre order")
+	log.Println("iterators")
+	log.Println()
+	log.Println("pre order")
 	printHeap(h)
-	fmt.Println()
-	fmt.Println("inorder")
+	log.Println()
+	log.Println("inorder")
 	for val := range h.InOrderIterator() {
-		fmt.Printf("%d ", val.Value())
+		log.Printf("%d ", val.Value())
 		assert.Equal(T, inOrder[i], val.Value())
 		i++
 	}
 	i = 0
-	fmt.Println()
-	fmt.Println("post-order")
+	log.Println()
+	log.Println("post-order")
 	for val := range h.PostOrderIterator() {
-		fmt.Printf("%d ", val.Value())
+		log.Printf("%d ", val.Value())
 		assert.Equal(T, postOrder[i], val.Value())
 		i++
 	}
-	fmt.Println()
+	log.Println()
 	//postOrder := []int{}
 
 	err = h.IncreaseKey(10000, 12)
@@ -97,25 +99,25 @@ func TestHeap(T *testing.T) {
 	err = h.DecreaseKey(100, 100)
 	assert.NotNil(T, err)
 
-	fmt.Println("deleting root")
+	log.Println("deleting root")
 	err = h.DeleteRoot()
 	assert.Nil(T, err)
 	assert.Equal(T, true, verifyHeap(h.Root()))
 	assert.Equal(T, 4, h.Count())
 	printHeap(h)
-	fmt.Println("deleting 1000")
+	log.Println("deleting 1000")
 	err = h.Remove(1000)
 	assert.Nil(T, err)
 	assert.Equal(T, true, verifyHeap(h.Root()))
 	assert.Equal(T, 3, h.Count())
 	printHeap(h)
-	fmt.Println("deleting 101")
+	log.Println("deleting 101")
 	err = h.Remove(101)
 	assert.Nil(T, err)
 	assert.Equal(T, true, verifyHeap(h.Root()))
 	assert.Equal(T, 2, h.Count())
 	printHeap(h)
-	fmt.Println("deleting 100")
+	log.Println("deleting 100")
 	err = h.Remove(100)
 	assert.Nil(T, err)
 	assert.Equal(T, true, verifyHeap(h.Root()))
@@ -123,7 +125,7 @@ func TestHeap(T *testing.T) {
 	printHeap(h)
 	err = h.Remove(4242)
 	assert.NotNil(T, err)
-	fmt.Println("deleting root")
+	log.Println("deleting root")
 	err = h.DeleteRoot()
 	assert.Nil(T, err)
 	assert.Equal(T, true, verifyHeap(h.Root()))
@@ -145,7 +147,7 @@ func TestHeap(T *testing.T) {
 	err = h.DecreaseKey(4242, 40)
 	assert.Nil(T, err)
 	printHeap(h)
-	fmt.Println("Heap testing end")
+	log.Println("Heap testing end")
 }
 func TestIntToBinaryString(T *testing.T) {
 	assert.Equal(T, "11", intToBinaryString(3))

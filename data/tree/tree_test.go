@@ -1,13 +1,15 @@
 package tree
 
 import (
-	"fmt"
+	"log"
 	"github.com/stretchr/testify/assert"
 	"testing"
+	"io/ioutil"
 )
 
 func TestTree(T *testing.T) {
-	fmt.Println("Tree testing start")
+	log.SetOutput(ioutil.Discard)
+	log.Println("Tree testing start")
 	t := NewTree()
 	assert.NotNil(T, t)
 	assert.Nil(T, t.Root())
@@ -38,23 +40,23 @@ func TestTree(T *testing.T) {
 	postOrder := []int{4, 6, 8, 9, 7, 5, 2, 3, 1}
 	i := 0
 	for value := range t.PreOrderIterator() {
-		//fmt.Println(value.Value())
+		//log.Println(value.Value())
 		assert.Equal(T, preOrder[i], value.Value())
 		i++
 	}
 	i = 0
 	for value := range t.InOrderIterator() {
-		//fmt.Println(value.Value())
+		//log.Println(value.Value())
 		assert.Equal(T, inOrder[i], value.Value())
 		i++
 	}
 	i = 0
 	for value := range t.PostOrderIterator() {
-		//fmt.Println(value.Value())
+		//log.Println(value.Value())
 		assert.Equal(T, postOrder[i], value.Value())
 		i++
 	}
 	assert.Equal(T, true, t.Contains(3))
 	assert.Equal(T, false, t.Contains(42))
-	fmt.Println("BST testing end")
+	log.Println("BST testing end")
 }
