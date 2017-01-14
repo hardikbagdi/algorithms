@@ -1,6 +1,7 @@
 package graph
 
 import (
+	"io/ioutil"
 	"log"
 	"testing"
 
@@ -64,7 +65,7 @@ func testdfs2(assert *assert.Assertions) {
 }
 
 func TestDFSGraph(T *testing.T) {
-	//log.SetOutput(ioutil.Discard)
+	log.SetOutput(ioutil.Discard)
 	assert := assert.New(T)
 	log.Println("testing BFS start")
 	testdfs1(assert)

@@ -1,5 +1,9 @@
-# Algorithms [![GoDoc](https://godoc.org/github.com/hardikbagdi/algorithms?status.svg)](http://godoc.org/github.com/hardikbagdi/algorithms) [![Go Report Card](https://goreportcard.com/badge/github.com/hardikbagdi/algorithms)](https://goreportcard.com/report/github.com/hardikbagdi/algorithms)
-[![Build Status](https://travis-ci.org/hardikbagdi/algorithms.png)](https://travis-ci.org/hardikbagdi/algorithms)
+# Algorithms
+[![GoDoc](https://godoc.org/github.com/hardikbagdi/algorithms?status.svg)](http://godoc.org/github.com/hardikbagdi/algorithms) [![Go Report Card](https://goreportcard.com/badge/github.com/hardikbagdi/algorithms)](https://goreportcard.com/report/github.com/hardikbagdi/algorithms)
+[![Build Status](https://travis-ci.org/hardikbagdi/algorithms.svg?branch=master)](https://travis-ci.org/hardikbagdi/algorithms) [![Coverage Status](https://coveralls.io/repos/github/hardikbagdi/algorithms/badge.svg?branch=master)](https://coveralls.io/github/hardikbagdi/algorithms?branch=master)
+```
+go get github.com/hardikbagdi/algorithms
+```
 ### Basic Algorithms
 #### Sorting
 - Bubble Sort
@@ -30,6 +34,6 @@
 # Todo
 - Graph - undirected;directed;weighted?
 - Matrix representation of Graph
-- DFS, BFS, Dijkstra
+- Dijkstra
 - detect cycle in graph
 - union-find data structure? (not sure)

@@ -1,11 +1,13 @@
 package linear
 
 import (
-	"fmt"
-	"github.com/stretchr/testify/assert"
+	"io/ioutil"
+	"log"
 	"math/rand"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func verifyHeap(heap *Heap) bool {
@@ -16,7 +18,7 @@ func verifyHeap(heap *Heap) bool {
 			if heap.array[i] < heap.array[l] {
 				continue
 			} else {
-				fmt.Println("Violation:", heap.array[i], "not less than", heap.array[l])
+				log.Println("Violation:", heap.array[i], "not less than", heap.array[l])
 				return false
 			}
 		}
@@ -24,7 +26,7 @@ func verifyHeap(heap *Heap) bool {
 			if heap.array[i] < heap.array[r] {
 				continue
 			} else {
-				fmt.Println("Violation:", heap.array[i], "not less than", heap.array[r])
+				log.Println("Violation:", heap.array[i], "not less than", heap.array[r])
 				return false
 			}
 		}
@@ -33,7 +35,9 @@ func verifyHeap(heap *Heap) bool {
 }
 
 func TestHeap(T *testing.T) {
-	fmt.Println("Heap test enter")
+	log.SetOutput(ioutil.Discard)
+	var ele int
+	log.Println("Heap test enter")
 	t := time.Now()
 	rand.Seed(t.Unix())
 	heap := NewHeap()
@@ -45,18 +49,17 @@ func TestHeap(T *testing.T) {
 	heap.Insert(2)
 	ret := verifyHeap(heap)
 	assert.Equal(T, true, ret)
-	ele := 0
 	ele, _ = heap.ElementAt(0)
 	assert.Equal(T, 2, ele)
-	fmt.Println(heap.Array())
+	log.Println(heap.Array())
 
 	index, ok := heap.Search(8)
 	assert.Equal(T, 2, index)
 	assert.Equal(T, true, ok)
 
-	fmt.Println("decrease key called")
+	log.Println("decrease key called")
 	heap.DecreaseKey(8, 1)
-	fmt.Println(heap)
+	log.Println(heap)
 
 	ele, _ = heap.ElementAt(0)
 	assert.Equal(T, 1, ele)
@@ -81,7 +84,7 @@ func TestHeap(T *testing.T) {
 
 	err = heap.RemoveAt(1)
 	assert.Nil(T, err)
-	fmt.Println(heap)
+	log.Println(heap)
 	ret = verifyHeap(heap)
 	assert.Equal(T, true, ret)
 
@@ -89,7 +92,7 @@ func TestHeap(T *testing.T) {
 		heap.Insert(i)
 	}
 	assert.Equal(T, 22, heap.Count())
-	fmt.Println(heap)
+	log.Println(heap)
 	ret = verifyHeap(heap)
 	assert.Equal(T, true, ret)
 
@@ -100,13 +103,13 @@ func TestHeap(T *testing.T) {
 	ret = verifyHeap(heap)
 	assert.Equal(T, true, ret)
 
-	fmt.Println(heap)
+	log.Println(heap)
 	heap.IncreaseKey(10, 10000)
 	ret = verifyHeap(heap)
 	assert.Equal(T, true, ret)
 
 	heap.DecreaseKey(116, 1)
-	fmt.Println(heap)
+	log.Println(heap)
 	ret = verifyHeap(heap)
 	assert.Equal(T, true, ret)
 
@@ -114,31 +117,31 @@ func TestHeap(T *testing.T) {
 		heap2 := NewHeap()
 		heap = heap2
 		for i := 1; i < 1000; i++ {
-			//			fmt.Println("Inserting")
+			//			log.Println("Inserting")
 			heap.Insert(rand.Intn(1000))
 			ret = verifyHeap(heap)
 			assert.Equal(T, true, ret)
 		}
 		for i := 1; i < 1000; i++ {
-			//			fmt.Println("Removing")
-			//			fmt.Println(heap)
+			//			log.Println("Removing")
+			//			log.Println(heap)
 			heap.Remove(rand.Intn(1000))
 			ret = verifyHeap(heap)
 			if !ret {
-				fmt.Println("==========================")
-				//				fmt.Println(heap)
+				log.Println("==========================")
+				//				log.Println(heap)
 				return
 			}
 			assert.Equal(T, true, ret)
 		}
 	}
-	fmt.Println(heap)
+	log.Println(heap)
 
-	fmt.Println("Heap test finished")
+	log.Println("Heap test finished")
 }
 
 func TestNaiveMergeHeap(T *testing.T) {
-	ret := false
+	var ret bool
 	heap := NewHeap()
 	heap2 := NewHeap()
 	for i := 1; i < 10; i++ {
@@ -159,7 +162,7 @@ func TestNaiveMergeHeap(T *testing.T) {
 }
 
 func TestMergeHeap(T *testing.T) {
-	ret := false
+	var ret bool
 	heap := NewHeap()
 	heap2 := NewHeap()
 	for i := 1; i < 10; i++ {
